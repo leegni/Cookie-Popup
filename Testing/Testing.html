@@ -1,0 +1,139 @@
+<html>
+
+<head>
+    <title>TABLE TESTING</title>
+    <style type="text/css">
+        #npopTable{
+            border: black 2px solid;
+            width: 500px;
+            height: 600px;
+            position: absolute;
+            background-color: white;
+            z-index: 1001;
+            padding: 5px;
+            visibility:hidden;
+        }
+        #npopHeader{
+            text-align: center;
+            height: 20px;
+            background-color: orange;
+            font-weight: bold;
+            font-size: 20px;
+            border: black 1px solid;
+        }
+        #npopTitle{
+            height: 30px;
+            background-color: white;
+            
+        }
+        #npopT-01{
+            border-right: gray 1px solid;
+            text-align: left;
+            font-weight: bold;
+        }
+        #npopTitle-wrapper{
+            width: 400px;
+            overflow-x: auto;
+        }
+        #npopWriter{
+            height: 30px;
+            background-color: white;
+        }
+        #npopW-01{
+            border-right: gray 1px solid;
+            text-align: left;
+            font-weight: bold;
+        }
+        #npopWriter-wrapper{
+            width: 400px;
+            overflow-x: auto;
+        }
+        #npopContent{
+            background-color: ivory;  
+            font-size: 20px;
+        }
+        #npopC-01{
+            border: gray 2px solid; 
+        }
+        #npopContent-wrapper{
+            height: 440px;
+            overflow-y: auto;
+        }
+        #npopFooter{
+            height: 20px;
+            text-align: right;
+            font-size: small;
+        }
+        #npopF-02{
+            text-align: center;
+        }
+        #testP{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <table id="npopTable" class="npop" >
+        <tr id="npopHeader" >
+            <td id="npopH-01" colspan="3">공지사항</td>
+        </tr>
+        <tr id="npopTitle" class="npop">
+            <td id="npopT-01">제목</td>
+            <td id="npopT-02" colspan="2">
+                <div id="npopTitle-wrapper">
+                    팝업 공지사항 제목
+                </div>    
+            </td>
+        </tr>
+        <tr id="npopWriter" class="npop">
+            <td id="npopW-01">작성자</td>
+            <td id="npopW-02" colspan="2">
+                <div id=npopWriter-wrapper>
+                    Guenhee.Lee
+                </div>
+            </td>
+        </tr>
+        <tr id="npopContent" class="npop">
+            <td id="npopC-01" colspan="3">
+                <div id="npopContent-wrapper">
+                    팝업 공지사항입니다.<br/>확인해주세요. 감사합니다.
+                </div>
+            </td>
+        </tr>
+        <tr id="npopFooter" class="npop">
+            <td></td>
+            <td id="npopF-01">오늘 하루 그만보기<input type="checkbox" id="npopCheckBox"/></td>
+            <td id="npopF-02"><input type="button" id="npopCloseButton" value="닫기" onclick="closeNPOP();"/></td>
+        </tr>
+    </table>
+    <p id="testP">TESTING</p>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+    cookiedata = document.cookie;
+    
+    if ( cookiedata.indexOf("ncookie=done") < 0 ){
+             document.getElementById('npopTable').style.visibility="visible";
+
+            } else{
+                document.getElementById('npopTable').style.visibility="hidden";
+            }
+    
+});
+
+function closeNPOP(){
+    if(document.getElementById("npopCheckBox").checked){
+        setCookie( "ncookie", "done" , 1 );
+    }
+    document.getElementById('npopTable').style.visibility="hidden";
+}
+
+function setCookie( name, value, expiredays ) { 
+        var todayDate = new Date();
+        todayDate.setDate( todayDate.getDate() + expiredays );
+        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+    }
+
+</script>
+</html>
