@@ -9,9 +9,10 @@
             height: 600px;
             position: absolute;
             background-color: white;
-            z-index: 1001;
+            z-index: 10001;
             padding: 5px;
             visibility:hidden;
+            left:3px; top:28px;
         }
         #npopHeader{
             text-align: center;
@@ -20,16 +21,26 @@
             font-weight: bold;
             font-size: 20px;
             border: black 1px solid;
+        
         }
         #npopTitle{
             height: 30px;
             background-color: white;
-            
+           
         }
-        #npopT-01{
+        #npopT-01
+        {
+            border-top :gray 2px solid; 
             border-right: gray 1px solid;
+            border-bottom: gray 1px solid;
             text-align: left;
             font-weight: bold;
+        }
+        #npopT-02
+        {
+             border-top :gray 2px solid; 
+             border-bottom: gray 1px solid;
+            
         }
         #npopTitle-wrapper{
             width: 400px;
@@ -103,37 +114,39 @@
         <tr id="npopFooter" class="npop">
             <td></td>
             <td id="npopF-01">오늘 하루 그만보기<input type="checkbox" id="npopCheckBox"/></td>
-            <td id="npopF-02"><input type="button" id="npopCloseButton" value="닫기" onclick="closeNPOP();"/></td>
+            <td id="npopF-02"><input type="button" id="npopCloseButton" value="닫기" onclick="javascript:closeNpop();"/></td>
         </tr>
     </table>
     <p id="testP">TESTING</p>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$( document ).ready(function() {
-    cookiedata = document.cookie;
-    
-    if ( cookiedata.indexOf("ncookie=done") < 0 ){
-             document.getElementById('npopTable').style.visibility="visible";
-
-            } else{
-                document.getElementById('npopTable').style.visibility="hidden";
-            }
-    
-});
-
-function closeNPOP(){
-    if(document.getElementById("npopCheckBox").checked){
-        setCookie( "ncookie", "done" , 1 );
-    }
-    document.getElementById('npopTable').style.visibility="hidden";
-}
-
-function setCookie( name, value, expiredays ) { 
+ // 24시간 기준 쿠키 설정하기  
+    var setCookie = function (cname, cvalue, exdays) {
         var todayDate = new Date();
-        todayDate.setDate( todayDate.getDate() + expiredays );
-        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+        todayDate.setTime(todayDate.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + todayDate.toUTCString(); // UTC기준의 시간에 exdays인자로 받은 값에 의해서 cookie가 설정 됩니다.
+        document.cookie = cname + "=" + cvalue + "; " + expires;
     }
+
+    var closeNpop = function () {
+        if ($("input[id='npopCheckBox']").is(":checked") == true) {
+            setCookie("close", "Y", 1);   //기간( ex. 1은 하루, 7은 일주일)
+        }
+        document.getElementById('npopTable').style.visibility = "hidden";
+    }
+
+    $(document).ready(function () {
+        cookiedata = document.cookie;
+        if (cookiedata.indexOf("close=Y")) {
+            document.getElementById('npopTable').style.visibility = "visible";
+        } else {
+            document.getElementById('npopTable').style.visibility = "hidden";
+        }
+        $("#close").click(function () {
+            couponClose();
+        });
+    });  
 
 </script>
 </html>
