@@ -3,33 +3,52 @@
 <head>
     <title>TABLE TESTING</title>
     <style type="text/css">
+      
         #npopTable{
             border: black 2px solid;
             width: 500px;
-            height: 600px;
+            height: 350px;
             position: absolute;
             background-color: white;
             z-index: 10001;
             padding: 5px;
             visibility:hidden;
-            left:3px; top:28px;
+            left:3px; 
+            display:block;
+            visibility:hidden;
+            top:20px;
         }
-        #npopHeader{
+        #npopHeader
+        {
+            display: table;
+            table-layout: fixed;
             text-align: center;
             height: 20px;
+            width: calc(100%-1em);
             background-color: orange;
             font-weight: bold;
             font-size: 20px;
             border: black 1px solid;
-        
+        }
+        #npopBody
+        {
+            display: block;
+            height:50px;
+            overflow: auto;
+        }
+        #npopBody tr
+        {
+            width:100%;
+            display: table;
+            table-layout: fixed;
         }
         #npopTitle{
-            height: 30px;
+            height: 20px;
             background-color: white;
-           
         }
         #npopT-01
         {
+            width:80px;
             border-top :gray 2px solid; 
             border-right: gray 1px solid;
             border-bottom: gray 1px solid;
@@ -40,37 +59,43 @@
         {
              border-top :gray 2px solid; 
              border-bottom: gray 1px solid;
-            
         }
         #npopTitle-wrapper{
-            width: 400px;
+            width: 320px;
             overflow-x: auto;
         }
         #npopWriter{
-            height: 30px;
+            height: 20px;
             background-color: white;
         }
-        #npopW-01{
+        #npopW-01
+        {
+            width:80px;
             border-right: gray 1px solid;
             text-align: left;
             font-weight: bold;
         }
         #npopWriter-wrapper{
-            width: 400px;
+            width: 320px;
             overflow-x: auto;
         }
         #npopContent{
             background-color: ivory;  
             font-size: 20px;
+            height : 250px;
         }
-        #npopC-01{
+        #npopC-01
+        {
             border: gray 2px solid; 
         }
         #npopContent-wrapper{
-            height: 440px;
-            overflow-y: auto;
+            height: 250px;
+            width: 500px;
+            overflow: auto;
         }
-        #npopFooter{
+        #npopFooter
+        {
+            display: block;
             height: 20px;
             text-align: right;
             font-size: small;
@@ -84,44 +109,50 @@
     </style>
 </head>
 <body>
-    <table id="npopTable" class="npop" >
-        <tr id="npopHeader" >
+<table id="npopTable" class="npop" >
+        <thead id="npopHeader" class="npop">
+        <tr >
             <td id="npopH-01" colspan="3">공지사항</td>
         </tr>
-        <tr id="npopTitle" class="npop">
-            <td id="npopT-01">제목</td>
+        </thead>
+        <tbody id="npopBody" class="npop">
+        <tr id="npopTitle" class="npop body">
+            <td id="npopT-01" colspan="1">제목</td>
             <td id="npopT-02" colspan="2">
                 <div id="npopTitle-wrapper">
-                    팝업 공지사항 제목
+                   제목
                 </div>    
             </td>
         </tr>
-        <tr id="npopWriter" class="npop">
-            <td id="npopW-01">작성자</td>
+        <tr id="npopWriter" class="npop body">
+            <td id="npopW-01" colspan="1">작성자</td>
             <td id="npopW-02" colspan="2">
-                <div id=npopWriter-wrapper>
-                    Guenhee.Lee
+                <div id="npopWriter-wrapper">
+                    작성자
                 </div>
             </td>
         </tr>
-        <tr id="npopContent" class="npop">
+        <tr id="npopContent" class="npop body">
             <td id="npopC-01" colspan="3">
                 <div id="npopContent-wrapper">
-                    팝업 공지사항입니다.<br/>확인해주세요. 감사합니다.
+                    
                 </div>
             </td>
         </tr>
-        <tr id="npopFooter" class="npop">
+        </tbody>
+        <tfoot id="npopFooter" class="npop">
+        <tr >
             <td></td>
             <td id="npopF-01">오늘 하루 그만보기<input type="checkbox" id="npopCheckBox"/></td>
             <td id="npopF-02"><input type="button" id="npopCloseButton" value="닫기" onclick="javascript:closeNpop();"/></td>
         </tr>
+        </tfoot>
     </table>
     <p id="testP">TESTING</p>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
- // 24시간 기준 쿠키 설정하기  
+// 24시간 기준 쿠키 설정하기  
     var setCookie = function (cname, cvalue, exdays) {
         var todayDate = new Date();
         todayDate.setTime(todayDate.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -131,17 +162,20 @@
 
     var closeNpop = function () {
         if ($("input[id='npopCheckBox']").is(":checked") == true) {
-            setCookie("close", "Y", 1);   //기간( ex. 1은 하루, 7은 일주일)
+            setCookie("closePop", "Y", 1);   //기간( ex. 1은 하루, 7은 일주일)
         }
         document.getElementById('npopTable').style.visibility = "hidden";
     }
 
     $(document).ready(function () {
         cookiedata = document.cookie;
-        if (cookiedata.indexOf("close=Y")<0) {
-            document.getElementById('npopTable').style.visibility = "visible";
-        } else {
-            document.getElementById('npopTable').style.visibility = "hidden";
+        var popexist = document.getElementById('npopTable');
+        if (popexist) {
+            if (cookiedata.indexOf("closePop=Y") < 0) {
+                document.getElementById('npopTable').style.visibility = "visible";
+            } else {
+                document.getElementById('npopTable').style.visibility = "hidden";
+            }
         }
         $("#close").click(function () {
             couponClose();
