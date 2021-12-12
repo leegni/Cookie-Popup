@@ -4,9 +4,9 @@
     <title>TABLE TESTING</title>
     <style type="text/css">
       
-          #npopTable{
+      #npopTable{
             border: black 2px solid;
-            width: 510px;
+            width: 500px;
             height: 350px;
             position: absolute;
             background-color: white;
@@ -18,12 +18,12 @@
         }
         #npopHeader
         {
-            display: block;
+            
             text-align: center;
-            height: 20px;
+            height: 15px;
             background-color: orange;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 15px;
             border: black 1px solid;
         
         }
@@ -47,7 +47,7 @@
              border-bottom: gray 1px solid;
         }
         #npopTitle-wrapper{
-            width: 320px;
+            width: 350px;
             overflow-x: auto;
         }
         #npopWriter{
@@ -62,7 +62,7 @@
             font-weight: bold;
         }
         #npopWriter-wrapper{
-            width: 320px;
+            width: 350px;
             overflow-x: auto;
         }
         #npopContent{
@@ -75,17 +75,17 @@
             border: gray 2px solid; 
         }
         #npopContent-wrapper{
-            height: 250px;
-            width: 500px;
+            height: 220px;
+            width: 490px;
             overflow: auto;
         }
         #npopFooter
         {
-            display: block;
             height: 20px;
             text-align: right;
             font-size: small;
         }
+      
         #npopF-02{
             text-align: center;
         }
@@ -104,7 +104,7 @@
             <td id="npopT-01" colspan="1">제목</td>
             <td id="npopT-02" colspan="2">
                 <div id="npopTitle-wrapper">
-                   [<%=poprs1("category")%>] <%=poprs1("subject")%> 
+                   제목
                 </div>    
             </td>
         </tr>
@@ -112,14 +112,14 @@
             <td id="npopW-01" colspan="1">작성자</td>
             <td id="npopW-02" colspan="2">
                 <div id="npopWriter-wrapper">
-                    <%=poprs1("author")%>
+                    작성자
                 </div>
             </td>
         </tr>
         <tr id="npopContent" class="npop">
             <td id="npopC-01" colspan="3">
                 <div id="npopContent-wrapper">
-                    <%=popContents%>
+                    내용
                 </div>
             </td>
         </tr>
