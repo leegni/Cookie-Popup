@@ -4,44 +4,30 @@
     <title>TABLE TESTING</title>
     <style type="text/css">
       
-        #npopTable{
+          #npopTable{
             border: black 2px solid;
-            width: 500px;
+            width: 510px;
             height: 350px;
             position: absolute;
             background-color: white;
             z-index: 10001;
             padding: 5px;
             visibility:hidden;
-            left:3px; 
+            left:3px; top:28px;
             display:block;
-            visibility:hidden;
-            top:20px;
         }
         #npopHeader
         {
-            display: table;
-            table-layout: fixed;
+            display: block;
             text-align: center;
             height: 20px;
-            width: calc(100%-1em);
             background-color: orange;
             font-weight: bold;
             font-size: 20px;
             border: black 1px solid;
+        
         }
-        #npopBody
-        {
-            display: block;
-            height:50px;
-            overflow: auto;
-        }
-        #npopBody tr
-        {
-            width:100%;
-            display: table;
-            table-layout: fixed;
-        }
+
         #npopTitle{
             height: 20px;
             background-color: white;
@@ -82,7 +68,7 @@
         #npopContent{
             background-color: ivory;  
             font-size: 20px;
-            height : 250px;
+            max-height: 250px;
         }
         #npopC-01
         {
@@ -109,44 +95,39 @@
     </style>
 </head>
 <body>
+
 <table id="npopTable" class="npop" >
-        <thead id="npopHeader" class="npop">
-        <tr >
+        <tr id="npopHeader" >
             <td id="npopH-01" colspan="3">공지사항</td>
         </tr>
-        </thead>
-        <tbody id="npopBody" class="npop">
-        <tr id="npopTitle" class="npop body">
+    <tr id="npopTitle" class="npop">
             <td id="npopT-01" colspan="1">제목</td>
             <td id="npopT-02" colspan="2">
                 <div id="npopTitle-wrapper">
-                   제목
+                   [<%=poprs1("category")%>] <%=poprs1("subject")%> 
                 </div>    
             </td>
         </tr>
-        <tr id="npopWriter" class="npop body">
+        <tr id="npopWriter" class="npop">
             <td id="npopW-01" colspan="1">작성자</td>
             <td id="npopW-02" colspan="2">
                 <div id="npopWriter-wrapper">
-                    작성자
+                    <%=poprs1("author")%>
                 </div>
             </td>
         </tr>
-        <tr id="npopContent" class="npop body">
+        <tr id="npopContent" class="npop">
             <td id="npopC-01" colspan="3">
                 <div id="npopContent-wrapper">
-                    
+                    <%=popContents%>
                 </div>
             </td>
         </tr>
-        </tbody>
-        <tfoot id="npopFooter" class="npop">
-        <tr >
+      <tr id="npopFooter" class="npop">
             <td></td>
             <td id="npopF-01">오늘 하루 그만보기<input type="checkbox" id="npopCheckBox"/></td>
             <td id="npopF-02"><input type="button" id="npopCloseButton" value="닫기" onclick="javascript:closeNpop();"/></td>
         </tr>
-        </tfoot>
     </table>
     <p id="testP">TESTING</p>
 </body>
